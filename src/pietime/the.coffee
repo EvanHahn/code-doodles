@@ -78,19 +78,11 @@ do ->
   # seconds and minutes have to be done as fast as possible.
   # the rest can be drawn much less frequently, for performance
 
-  oneHour = 3600000
-  oneDay = 86400000
-  oneWeek = 604800000
-  oneMonth = 2419200000 # 28 days
-  oneYear = 31557600000
-
   do secondsAndMinutes = ->
     draw intervals[0] # s
     draw intervals[1] # m
     requestAnimationFrame(secondsAndMinutes)
 
-  startInterval (-> draw intervals[2]), oneHour / 200
-  startInterval (-> draw intervals[3]), oneDay / 200
-  startInterval (-> draw intervals[4]), oneWeek / 200
-  startInterval (-> draw intervals[5]), oneMonth / 200
-  startInterval (-> draw intervals[6]), oneYear / 200
+  startInterval ->
+    draw interval for interval, i in intervals when i >= 2
+  , 1000
