@@ -1,4 +1,4 @@
-CANVAS_SIZE = 200
+PADDING = 20
 INTERVALS = "second minute hour day week month year".split " "
 COLORS = [
   "#fa8072"
@@ -14,6 +14,25 @@ crel = (el) -> document.createElement el
 
 intervals = []
 
+draw = (interval) ->
+
+  diff = moment().endOf(interval.name).diff(moment())
+  percent = diff / interval.ms
+
+  size = interval.canvas.width
+  center = size / 2
+  ctx = interval.context
+
+  ctx.clearRect(0, 0, size, size)
+
+  ctx.fillStyle = interval.color
+
+  ctx.beginPath()
+  ctx.moveTo(center, center)
+  ctx.arc(center, center, Math.abs(center - 1), 0, 2 * Math.PI * percent)
+  ctx.fill()
+
+padding = 0
 do ->
 
   fragment = document.createDocumentFragment()
@@ -27,36 +46,26 @@ do ->
     wrapper.appendChild canvas
     timelist.appendChild wrapper
 
-    canvas.width = canvas.height = CANVAS_SIZE * 2
-    canvas.style.width = canvas.style.height = CANVAS_SIZE + "px"
-
-    toAdd =
+    intervals.push
       name: interval
       color: COLORS[i]
       ms: moment.duration(1, interval).asMilliseconds()
       canvas: canvas
       context: canvas.getContext "2d"
-    toAdd.context.fillStyle = toAdd.color
-    intervals.push toAdd
 
   fragment.appendChild(timelist)
   document.body.appendChild(fragment)
 
-draw = (interval) ->
+do window.onresize = ->
 
-  diff = moment().endOf(interval.name).diff(moment())
-  percent = diff / interval.ms
+  width = window.innerWidth
+  size = (width - (PADDING * intervals.length)) / intervals.length
 
-  size = interval.canvas.width
-  center = size / 2
-  ctx = interval.context
-
-  ctx.clearRect(0, 0, size, size)
-
-  ctx.beginPath()
-  ctx.moveTo(center, center)
-  ctx.arc(center, center, center - 1, 0, 2 * Math.PI * percent)
-  ctx.fill()
+  for interval in intervals
+    canvas = interval.canvas
+    canvas.width = canvas.height = size * 2
+    canvas.style.width = canvas.style.height = size + "px"
+    draw interval
 
 do ->
 
