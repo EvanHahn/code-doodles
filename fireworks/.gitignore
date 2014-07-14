@@ -1,5 +1,7 @@
-*.log
-node_modules
+www
 
-*.swp
+node_modules
+*.log
+
 .DS_Store
+*.swp
