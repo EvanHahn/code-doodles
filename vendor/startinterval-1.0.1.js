@@ -1,0 +1,1 @@
+function startInterval(a){a();return setInterval.apply(this,arguments)}"undefined"!==typeof module&&(module.exports=startInterval);
