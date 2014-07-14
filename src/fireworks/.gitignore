@@ -1,0 +1,7 @@
+www
+
+node_modules
+*.log
+
+.DS_Store
+*.swp
