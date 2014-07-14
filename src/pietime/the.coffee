@@ -1,4 +1,4 @@
-PADDING = 20
+PADDING = 25
 INTERVALS = "second minute hour day week month year".split " "
 COLORS = [
   "#fa8072"
@@ -25,9 +25,15 @@ draw = (interval) ->
 
   ctx.clearRect(0, 0, size, size)
 
-  ctx.fillStyle = interval.color
+  ctx.fillStyle = ctx.strokeStyle = interval.color
 
   radius = Math.max(center * percent, center * 0.9)
+
+  ctx.beginPath()
+  ctx.moveTo(center, center)
+  ctx.arc(center, center, radius, 0, 2 * Math.PI)
+  ctx.stroke()
+
   ctx.beginPath()
   ctx.moveTo(center, center)
   ctx.arc(center, center, radius, 0, 2 * Math.PI * percent)
