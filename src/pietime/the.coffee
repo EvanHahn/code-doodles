@@ -27,12 +27,12 @@ draw = (interval) ->
 
   ctx.fillStyle = interval.color
 
+  radius = Math.max(center * percent, center * 0.9)
   ctx.beginPath()
   ctx.moveTo(center, center)
-  ctx.arc(center, center, Math.abs(center - 1), 0, 2 * Math.PI * percent)
+  ctx.arc(center, center, radius, 0, 2 * Math.PI * percent)
   ctx.fill()
 
-padding = 0
 do ->
 
   fragment = document.createDocumentFragment()
