@@ -1,0 +1,28 @@
+@import "vendor/cssreset";
+
+@brand-color: #85242f;
+@brand-color-light: lighten(@brand-color, 25%);
+
+html {
+  font-family: Lato, "Segoe UI", Avenir, Ubuntu, Tahoma, Verdana, Helvetica, sans-serif;
+  font-size: 16pt;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  display: block;
+  padding: 1em;
+  text-align: center;
+  font-size: 36pt;
+  background-color: #f0f0f0;
+  a {
+    color: @brand-color;
+    &:hover {
+      color: @brand-color-light;
+    }
+  }
+}

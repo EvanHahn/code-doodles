@@ -1,0 +1,19 @@
+doctype html
+html
+
+  head
+    meta(charset="utf-8")
+    title Evan Hahn's code doodles
+    link(rel="stylesheet" href="index.css")
+
+  body
+
+    mixin doodle(name)
+      li
+        a(href="/#{name}")
+          img(src="/#{name}/image.png")
+
+    h1 "Code doodles" by <a href="http://evanhahn.com">Evan Hahn</a>
+
+    ul.doodles
+      +doodle("pietime")
