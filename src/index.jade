@@ -12,7 +12,7 @@ html
     mixin doodle(name)
       li
         a(href="#{name}")
-          h1= name
+          h1= name.replace(/\-/g, " ")
           img(src="#{name}/image.png")
 
     h1 "Code doodles" by <a href="http://evanhahn.com">Evan Hahn</a>
