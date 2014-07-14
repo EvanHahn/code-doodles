@@ -70,30 +70,21 @@ draw = function(interval) {
 })();
 
 (function() {
-  var oneDay, oneHour, oneMonth, oneWeek, oneYear, secondsAndMinutes;
-  oneHour = 3600000;
-  oneDay = 86400000;
-  oneWeek = 604800000;
-  oneMonth = 2419200000;
-  oneYear = 31557600000;
+  var secondsAndMinutes;
   (secondsAndMinutes = function() {
     draw(intervals[0]);
     draw(intervals[1]);
     return requestAnimationFrame(secondsAndMinutes);
   })();
-  startInterval((function() {
-    return draw(intervals[2]);
-  }), oneHour / 200);
-  startInterval((function() {
-    return draw(intervals[3]);
-  }), oneDay / 200);
-  startInterval((function() {
-    return draw(intervals[4]);
-  }), oneWeek / 200);
-  startInterval((function() {
-    return draw(intervals[5]);
-  }), oneMonth / 200);
-  return startInterval((function() {
-    return draw(intervals[6]);
-  }), oneYear / 200);
+  return startInterval(function() {
+    var i, interval, _i, _len, _results;
+    _results = [];
+    for (i = _i = 0, _len = intervals.length; _i < _len; i = ++_i) {
+      interval = intervals[i];
+      if (i >= 2) {
+        _results.push(draw(interval));
+      }
+    }
+    return _results;
+  }, 1000);
 })();
