@@ -1,3 +1,7 @@
+square = (n) -> n * n
+
+G = 1
+
 canvas = document.createElement("canvas")
 context = canvas.getContext "2d"
 $("body").append canvas
@@ -18,15 +22,29 @@ $(canvas).on "mousedown", (event) ->
   currentPlanet = new Planet
     x: event.clientX
     y: event.clientY
-  entities.push currentPlanet
+  planets.push currentPlanet
 $(canvas).on "mouseup", ->
   currentPlanet = null
 
-entities = []
+planets = []
 ticker (dt) ->
 
   currentPlanet?.grow(dt)
 
-  for entity in entities
-    entity.tick?(dt)
-    entity.draw?(context)
+  for planetA, i in planets
+
+    planetA.tick(dt)
+    planetA.draw(context)
+    
+    for planetB, j in planets when j > i
+
+      m1 = planetA.radius
+      m2 = planetB.radius
+
+      xdiff = planetA.x - planetB.x
+      ydiff = planetA.y - planetB.y
+      r2 = square(xdiff) + square(ydiff)
+
+      angle = Math.sin(ydiff)
+      accelerationA = G * m2 / r2
+      accelerationB = G * m1 / r2
