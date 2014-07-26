@@ -1,10 +1,12 @@
-var COLORS, INTERVALS, PADDING, crel, draw, intervals;
+var COLORS, INTERVALS, PADDING, PIXEL_RATIO, crel, draw, intervals;
 
 PADDING = 25;
 
 INTERVALS = "second minute hour day week month year".split(" ");
 
 COLORS = ["#fa8072", "#faad72", "#fada72", "#ecfa72", "#87ceeb", "#87aceb", "#a4b7eb"];
+
+PIXEL_RATIO = window.devicePixelRatio || 1;
 
 crel = function(el) {
   return document.createElement(el);
@@ -33,15 +35,19 @@ draw = function(interval) {
 };
 
 (function() {
-  var canvas, fragment, i, interval, timelist, wrapper, _i, _len;
+  var canvas, description, fragment, i, interval, timelist, wrapper, _i, _len;
   fragment = document.createDocumentFragment();
   timelist = crel("ul");
   for (i = _i = 0, _len = INTERVALS.length; _i < _len; i = ++_i) {
     interval = INTERVALS[i];
     wrapper = crel("li");
+    description = crel("div");
     canvas = crel("canvas");
     wrapper.appendChild(canvas);
+    wrapper.appendChild(description);
     timelist.appendChild(wrapper);
+    description.style.color = COLORS[i];
+    description.innerHTML = interval;
     intervals.push({
       name: interval,
       color: COLORS[i],
@@ -57,12 +63,18 @@ draw = function(interval) {
 (window.onresize = function() {
   var canvas, interval, size, width, _i, _len, _results;
   width = window.innerWidth;
-  size = (width - (PADDING * intervals.length)) / intervals.length;
+  if (width > 600) {
+    size = (width - (PADDING * intervals.length)) / intervals.length;
+  } else if (width > 400) {
+    size = (width - (PADDING * intervals.length)) / (intervals.length / 4);
+  } else {
+    size = width - (PADDING * intervals.length);
+  }
   _results = [];
   for (_i = 0, _len = intervals.length; _i < _len; _i++) {
     interval = intervals[_i];
     canvas = interval.canvas;
-    canvas.width = canvas.height = size * 2;
+    canvas.width = canvas.height = size * PIXEL_RATIO;
     canvas.style.width = canvas.style.height = size + "px";
     _results.push(draw(interval));
   }
