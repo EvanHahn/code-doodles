@@ -9,6 +9,7 @@ COLORS = [
   "#87aceb"
   "#a4b7eb"
 ]
+PIXEL_RATIO = window.devicePixelRatio or 1
 
 crel = (el) -> document.createElement el
 
@@ -48,9 +49,14 @@ do ->
   for interval, i in INTERVALS
 
     wrapper = crel "li"
+    description = crel "div"
     canvas = crel "canvas"
     wrapper.appendChild canvas
+    wrapper.appendChild description
     timelist.appendChild wrapper
+
+    description.style.color = COLORS[i]
+    description.innerHTML = interval
 
     intervals.push
       name: interval
@@ -65,11 +71,17 @@ do ->
 do window.onresize = ->
 
   width = window.innerWidth
-  size = (width - (PADDING * intervals.length)) / intervals.length
+
+  if width > 600
+    size = (width - (PADDING * intervals.length)) / intervals.length
+  else if width > 400
+    size = (width - (PADDING * intervals.length)) / (intervals.length / 4)
+  else
+    size = width - (PADDING * intervals.length)
 
   for interval in intervals
     canvas = interval.canvas
-    canvas.width = canvas.height = size * 2
+    canvas.width = canvas.height = size * PIXEL_RATIO
     canvas.style.width = canvas.style.height = size + "px"
     draw interval
 
