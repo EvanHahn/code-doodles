@@ -39,10 +39,15 @@ boxes.sort (a, b) ->
   bDist = distanceFromFront(b.location)
   return aDist - bDist
 
+buildingSize = (WORLD_RANGE.length + 1) * .9
+building = Pyramid(Point.ORIGIN, buildingSize, buildingSize, -10)
+
 ticker (dt, t) ->
 
   context.clearRect(0, 0, canvas.width, canvas.height)
   iso = new Isomer canvas
+
+  iso.add building, new Color(20, 20, 20)
 
   for box in boxes
 
