@@ -1,19 +1,15 @@
 # load an image...
 
 IMAGES = [
-  'images/by_Samuel_Rohl_sm.png'
+  'images/by_Samuel_Rohl_tiny.gif'
 ]
 image = new Image
 image.src = _.sample IMAGES
 image.onload = ->
 
   drawPixel = (x, y, color) ->
-    context.strokeStyle = color
-    context.beginPath()
-    context.moveTo(x, y)
-    context.lineTo(x + 0.5, y + 0.5)
-    context.stroke()
-    context.closePath()
+    context.fillStyle = color
+    context.fillRect(x, y, x + 1, y + 1)
 
   # draw the initial image...
 
@@ -31,6 +27,8 @@ image.onload = ->
 
   rawData = context.getImageData(0, 0, width, height).data
   trainingSet = new Array(width * height)
+
+  console.time 'Building training set...'
 
   i = 0
   for y in [0...height]
@@ -52,11 +50,33 @@ image.onload = ->
           b: b / 255
       i += 1
 
+  console.timeEnd 'Building training set...'
+
   # train your brain
 
-  async.nextTick ->
+  setTimeout ->
+
+    console.time 'Training set...'
 
     net = new brain.NeuralNetwork()
-    net.train trainingSet
+    net.train trainingSet,
+      iterations: 800
 
-    console.log net.run { x: 0, y: 0 }
+    console.timeEnd 'Training set...'
+
+    console.time 'Drawing pixels...'
+
+    for y in [0...height]
+      for x in [0...width]
+
+        result = net.run { x, y }
+        r = Math.floor(result.r * 255)
+        g = Math.floor(result.g * 255)
+        b = Math.floor(result.b * 255)
+        color = "rgb(#{r}, #{g}, #{b})"
+
+        drawPixel(x, y, color)
+
+    console.timeEnd 'Drawing pixels...'
+
+  , 1000
