@@ -52,4 +52,11 @@ image.onload = ->
           b: b / 255
       i += 1
 
-  console.log trainingSet
+  # train your brain
+
+  async.nextTick ->
+
+    net = new brain.NeuralNetwork()
+    net.train trainingSet
+
+    console.log net.run { x: 0, y: 0 }
