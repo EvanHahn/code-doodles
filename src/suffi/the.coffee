@@ -42,12 +42,11 @@ image.onload = ->
       g = rawData[greenLocation]
       b = rawData[blueLocation]
 
+      lightness = (b + (g * 0x100) + (r * 0x10000)) / 0xffffff
+
       trainingSet[i] =
         input: { x, y }
-        output:
-          r: r / 255
-          g: g / 255
-          b: b / 255
+        output: [lightness]
       i += 1
 
   console.timeEnd 'Building training set...'
@@ -69,10 +68,10 @@ image.onload = ->
     for y in [0...height]
       for x in [0...width]
 
-        result = net.run { x, y }
-        r = Math.floor(result.r * 255)
-        g = Math.floor(result.g * 255)
-        b = Math.floor(result.b * 255)
+        result = net.run({ x, y })[0]
+        r = Math.floor(result * 255)
+        g = Math.floor(result * 255)
+        b = Math.floor(result * 255)
         color = "rgb(#{r}, #{g}, #{b})"
 
         drawPixel(x, y, color)
