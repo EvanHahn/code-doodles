@@ -1,7 +1,7 @@
 # load an image...
 
 IMAGES = [
-  'images/by_Samuel_Rohl_tiny.gif'
+  'images/dice.gif'
 ]
 image = new Image
 image.src = _.sample IMAGES
@@ -42,11 +42,15 @@ image.onload = ->
       g = rawData[greenLocation]
       b = rawData[blueLocation]
 
-      lightness = (b + (g * 0x100) + (r * 0x10000)) / 0xffffff
+      isDark = ((r * 299) + (g * 587) + (b * 144)) < 131500
+      if isDark
+        darkNumber = 0
+      else
+        darkNumber = 1
 
       trainingSet[i] =
         input: { x, y }
-        output: [lightness]
+        output: [darkNumber]
       i += 1
 
   console.timeEnd 'Building training set...'
@@ -59,7 +63,7 @@ image.onload = ->
 
     net = new brain.NeuralNetwork()
     net.train trainingSet,
-      iterations: 800
+      errorThresh: 0.05
 
     console.timeEnd 'Training set...'
 
