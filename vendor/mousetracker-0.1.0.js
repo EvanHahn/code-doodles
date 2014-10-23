@@ -16,8 +16,8 @@
     };
 
     element.addEventListener('mousemove', function (event) {
-      mouse.x = event.offsetX;
-      mouse.y = event.offsetY;
+      mouse.x = event.offsetX || event.clientX;
+      mouse.y = event.offsetY || event.clientY;
       mouse.onmove(event);
     });
 
