@@ -1,4 +1,7 @@
-NUM_TRIANGLES = 20
+DAY_COLOR = Spectra('#c8caf9')
+NIGHT_COLOR = Spectra('#3a224a')
+SUN_COLOR = '#faac00'
+NUM_TRIANGLES = 10
 
 clamp = (n, min, max) ->
   if n < min
@@ -30,9 +33,16 @@ ticker ->
   pyramidSize = Math.floor(canvas.width / NUM_TRIANGLES)
   bottom = canvas.height
 
-  context.clearRect(0, 0, canvas.width, canvas.height)
+  percentNight = (mouse.y / bottom) * 100
+  context.fillStyle = DAY_COLOR.mix(NIGHT_COLOR, percentNight).hex()
+  context.fillRect(0, 0, canvas.width, canvas.height)
 
-  context.fillStyle = 'rgba(0, 0, 0, 0.25)'
+  context.fillStyle = SUN_COLOR
+  context.beginPath()
+  context.arc(mouse.x, mouse.y, pyramidSize / 3, 0, 2 * Math.PI)
+  context.fill()
+
+  context.fillStyle = Spectra('white').mix(Spectra('black'), percentNight).hex()
 
   for i in [0...NUM_TRIANGLES]
 
