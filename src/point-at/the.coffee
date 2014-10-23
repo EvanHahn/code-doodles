@@ -1,4 +1,12 @@
-NUM_TRIANGLES = 2
+NUM_TRIANGLES = 20
+
+clamp = (n, min, max) ->
+  if n < min
+    return min
+  else if n > max
+    return max
+  else
+    return n
 
 canvas = document.createElement("canvas")
 context = canvas.getContext "2d"
@@ -18,7 +26,6 @@ $(window).trigger "resize"
 mouse = mouseTracker(startX: canvas.width / 2, startY: canvas.height / 2)
 
 ticker ->
-# do ->
 
   pyramidSize = Math.floor(canvas.width / NUM_TRIANGLES)
   bottom = canvas.height
@@ -33,9 +40,12 @@ ticker ->
     rightSide = leftSide + pyramidSize
     middle = leftSide + (pyramidSize / 2)
 
+    topX = clamp(mouse.x, leftSide, rightSide)
+    topY = clamp(mouse.y, bottom - pyramidSize, bottom)
+
     context.beginPath()
     context.moveTo(leftSide, bottom)
     context.lineTo(rightSide, bottom)
-    context.lineTo(middle, mouse.y)
+    context.lineTo(topX, topY)
     context.lineTo(i * pyramidSize, bottom)
     context.fill()
