@@ -1,1 +1,1 @@
-html{cursor:pointer}body{transition:background 1s ease}
+html{cursor:pointer}body{-webkit-transition:background 1s ease;transition:background 1s ease}
