@@ -8,7 +8,20 @@ html
 
   body
 
+    p.clock
+      span.description Your clock says that it's
+      span.time
+        
+    p.solar
+      span.description The sun says that it's
+      span.time
+        
+    p.difference
+      span.description The sun is <span class="earlier"></span> by
+      span.time
+
     script(src="../vendor/suncalc-1.5.2.js")
-    script(src="../vendor/humanizeduration-2.0.1.js")
+    script(src="../vendor/humanizeduration-2.1.0.js")
     script(src="../vendor/sugar-1.4.1.js")
+    script(src="../vendor/spectra-0.2.3.js")
     script(src="the.js")
