@@ -1,6 +1,7 @@
 canvas = document.querySelector('canvas')
 context = canvas.getContext '2d'
 dots = []
+mouse = { x: -1000, y: -1000 }
 
 do ->
   dpr = window.devicePixelRatio or 1
@@ -14,5 +15,11 @@ do ->
     for y in [30...innerHeight] by 60
       dots.push new Dot(x, y, 15)
 
-for dot in dots
-  dot.draw(context)
+canvas.addEventListener 'mousemove', (event) ->
+  [mouse.x, mouse.y] = [event.clientX, event.clientY]
+
+ticker ->
+  context.clearRect(0, 0, canvas.width, canvas.height)
+  for dot in dots
+    dot.update(mouse)
+    dot.draw(context)
