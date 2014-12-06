@@ -5,3 +5,9 @@ Math.sign = (n) ->
     return -1
   else
     return 0
+
+Math.moveTowards = (val, destination, howMuch) ->
+  if destination > val
+    return Math.min(val + howMuch, destination)
+  else
+    return Math.max(val - howMuch, destination)

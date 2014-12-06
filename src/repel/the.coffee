@@ -18,8 +18,9 @@ do ->
 canvas.addEventListener 'mousemove', (event) ->
   [mouse.x, mouse.y] = [event.clientX, event.clientY]
 
-ticker ->
+ticker (dtRaw) ->
+  dt = dtRaw / 1000
   context.clearRect(0, 0, canvas.width, canvas.height)
   for dot in dots
-    dot.update(mouse)
+    dot.update(dt)
     dot.draw(context)
