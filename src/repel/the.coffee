@@ -11,9 +11,11 @@ do ->
   canvas.style.height = innerHeight + 'px'
 
 do ->
-  for x in [30...innerWidth] by 60
-    for y in [30...innerHeight] by 60
-      dots.push new Dot(x, y, 15)
+  step = 35
+  radius = (step / 2) - 2
+  for x in [(step / 2)...(innerWidth + step * 2)] by step
+    for y in [0...(innerHeight + step * 2)] by step
+      dots.push new Dot(x, y, radius)
 
 canvas.addEventListener 'mousemove', (event) ->
   [mouse.x, mouse.y] = [event.clientX, event.clientY]
