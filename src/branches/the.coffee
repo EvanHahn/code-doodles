@@ -12,7 +12,8 @@ trunk = new Branch
   center:
     x: canvas.width / 2
     y: canvas.height
-  width: 200
+  width: 50
+  maxHeight: canvas.height
   direction: Math.PI / 2
 
 updateBranch = (branch, dt) ->
