@@ -15,8 +15,12 @@ trunk = new Branch
   width: 200
   direction: Math.PI / 2
 
+updateBranch = (branch, dt) ->
+  branch.update(dt)
+  branch.draw(context)
+  updateBranch(child, dt) for child in branch.children
+
 ticker (dt) ->
   dt /= 1000
   context.clearRect(0, 0, canvas.width, canvas.height)
-  trunk.update(dt)
-  trunk.draw(context)
+  updateBranch(trunk, dt)
