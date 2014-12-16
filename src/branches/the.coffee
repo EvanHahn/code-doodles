@@ -11,10 +11,12 @@ do ->
 trunk = new Branch
   center:
     x: canvas.width / 2
-    y: canvas.height / 2  # TODO this is temporary
+    y: canvas.height
   width: 200
   direction: Math.PI / 2
 
 ticker (dt) ->
   dt /= 1000
+  context.clearRect(0, 0, canvas.width, canvas.height)
+  trunk.update(dt)
   trunk.draw(context)
