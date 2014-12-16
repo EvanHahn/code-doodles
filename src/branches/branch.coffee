@@ -7,10 +7,10 @@ class Branch
 
   draw: (context) ->
     radius = @width / 2
-    xDiff = Math.cos(@direction + Math.PI / 2) * radius
-    yDiff = Math.sin(@direction + Math.PI / 2) * radius
+    leftX = Math.cos(@direction + Math.PI / 2) * radius
+    rightX = Math.sin(@direction + Math.PI / 2) * radius
     context.fillStyle = @color
     context.beginPath()
-    context.moveTo(@center.x - xDiff, @center.y - yDiff)
-    context.lineTo(@center.x + xDiff, @center.y + yDiff)
+    context.moveTo(@center.x - leftX, @center.y - rightX)
+    context.lineTo(@center.x + leftX, @center.y + rightX)
     context.stroke()

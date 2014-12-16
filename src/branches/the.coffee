@@ -9,13 +9,12 @@ do ->
   canvas.style.height = innerHeight + 'px'
 
 trunk = new Branch
-  center: { x: 300, y:300 }
-#    x: canvas.width / 2
-#    y: canvas.height
+  center:
+    x: canvas.width / 2
+    y: canvas.height / 2  # TODO this is temporary
   width: 200
   direction: Math.PI / 2
 
 ticker (dt) ->
   dt /= 1000
   trunk.draw(context)
-  trunk.direction += 0.01
