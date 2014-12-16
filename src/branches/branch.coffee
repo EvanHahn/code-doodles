@@ -22,9 +22,9 @@ class Branch
     context.lineTo(@peak().x, @peak().y)
     context.stroke()
 
-  update: (dt) ->
+  update: (dt, t) ->
     if @height < @maxHeight
-      @height += dt * 100 * Math.random()
+      @height += dt * 200
       if (Math.random() < (@height / (@maxHeight * 5))) and (@width > 5)
         if Math.random() < 0.5
           direction = (Math.PI / 2) + @direction
@@ -35,6 +35,6 @@ class Branch
           @children.push new Branch
             color: Spectra.random().mix(@color, 50)
             center: @peak()
-            width: (@height / @maxHeight) * @width
+            width: (@height / @maxHeight) * @width / 2
             maxHeight: @maxHeight / 2
             direction: direction
