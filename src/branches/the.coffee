@@ -21,7 +21,6 @@ newTrunk = ->
     width: 50
     maxHeight: canvas.height * Math.max(Math.random(), 0.5)
     direction: Math.PI / 2
-  document.documentElement.style.backgroundColor = trunk.color.lighten(40).hex()
   okayToMakeNewTrunk = false
   setTimeout ->
     okayToMakeNewTrunk = true
