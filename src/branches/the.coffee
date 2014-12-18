@@ -1,16 +1,18 @@
 canvas = document.querySelector('canvas')
 context = canvas.getContext '2d'
 
-trunk = null
-
-main = ->
-
+makeCanvasFillScreen = ->
   dpr = window.devicePixelRatio or 1
   canvas.width = dpr * innerWidth
   canvas.height = dpr * innerHeight
   canvas.style.width = innerWidth + 'px'
   canvas.style.height = innerHeight + 'px'
+makeCanvasFillScreen()
+window.addEventListener 'resize', makeCanvasFillScreen
 
+trunk = null
+okayToMakeNewTrunk = false
+newTrunk = ->
   trunk = new Branch
     color: Spectra.random()
     center:
@@ -19,18 +21,20 @@ main = ->
     width: 50
     maxHeight: canvas.height * Math.max(Math.random(), 0.5)
     direction: Math.PI / 2
-
   document.documentElement.style.backgroundColor = trunk.color.lighten(40).hex()
+  okayToMakeNewTrunk = false
+  setTimeout ->
+    okayToMakeNewTrunk = true
+  , 1000
 
 updateBranch = (branch, dt) ->
-  branch.update(dt)
-  branch.draw(context)
-  updateBranch(child, dt) for child in branch.children
+  if branch
+    branch.update(dt)
+    branch.draw(context)
+    updateBranch(child, dt) for child in branch.children
 
-main()
-addEventListener 'click', main
-
+newTrunk()
 ticker (dt) ->
-  return unless trunk?
   dt /= 1000
   updateBranch(trunk, dt)
+  newTrunk() if (trunk.children.length is 0) and okayToMakeNewTrunk

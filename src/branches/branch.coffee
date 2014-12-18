@@ -1,6 +1,6 @@
 class Branch
 
-  constructor: ({ @center, @width, maxHeight, @direction, @color }) ->
+  constructor: ({ @center, @width, maxHeight, @direction, @color, @parent }) ->
     @maxHeight = Math.floor(maxHeight)
     @height = 0
     @children = []
@@ -12,6 +12,7 @@ class Branch
     }
 
   draw: (context) ->
+    return if @height >= @maxHeight
     radius = @width / 2
     context.strokeStyle = @color.hex()
     context.lineWidth = @width
@@ -21,18 +22,22 @@ class Branch
     context.stroke()
 
   update: (dt) ->
-    # @color = @color.mix(Spectra('#ffffff'), 30 * dt)
-    if @height < @maxHeight
-      @height += dt * 200
-      if (Math.random() < (@height / (@maxHeight * 10))) and (@width > 10)
+    if @height >= @maxHeight
+      if @parent?
+        siblings = @parent.children
+        siblings.splice(siblings.indexOf(this), 1)
+    else
+      @height += dt * 500
+      if (Math.random() < 0.1) and (@width > 10)
         if Math.random() < 0.5
           direction = (Math.PI / 2) + @direction
         else
           direction = (3 * Math.PI / 2) + @direction
         direction %= Math.PI * 2
         @children.push new Branch
-          color: @color
+          color: @color.mix(Spectra('#ffffff'), 15)
           center: @peak()
           width: (@height / @maxHeight) * @width
           maxHeight: @maxHeight
           direction: direction
+          parent: this
