@@ -52,7 +52,7 @@ recreateDir(outputDir, err => {
           const buildFunction = require(buildFile);
           const outputFolder = path.resolve(outputDir, file);
 
-          const build = function build() {
+          const build = function() {
             console.log('building', file);
             recreateDir(outputFolder, err => {
               if (err) {

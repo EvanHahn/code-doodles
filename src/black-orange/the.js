@@ -3,6 +3,8 @@ const ticker = require('../vendor/ticker-0.2.1');
 const makeCanvasFillScreen = require('./make-canvas-fill-screen');
 const Ring = require('./ring');
 
+const RING_COUNT = 10;
+
 const canvas = crel('canvas');
 const context = canvas.getContext('2d');
 makeCanvasFillScreen(canvas);
@@ -12,12 +14,12 @@ const center = {
   x: window.innerWidth / 2,
   y: window.innerHeight / 2
 };
-
-const fullRadius = Math.min(window.innerWidth, window.innerHeight) / 2;
+const fullRadius = (Math.min(window.innerWidth, window.innerHeight) / 2) * 0.95;
+const ringSize = fullRadius / RING_COUNT;
 
 let rings = [];
-for (let i = 1; i <= 12; i ++) {
-  rings.push(new Ring(center, fullRadius / i));
+for (let i = RING_COUNT; i > 0; i --) {
+  rings.push(new Ring(center, ringSize * i));
 }
 
 ticker(dt => {
