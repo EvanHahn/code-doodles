@@ -55,8 +55,15 @@ recreateDir(outputDir, err => {
           const build = function build() {
             console.log('building', file);
             recreateDir(outputFolder, err => {
-              if (err) { throw err; }
-              buildFunction(outputFolder, thrower);
+              if (err) {
+                console.error('Error recreating output folder:', err);
+                return;
+              }
+              buildFunction(outputFolder, err => {
+                if (err) {
+                  console.error('Error building ' + file + ':', err);
+                }
+              });
             });
           };
 
