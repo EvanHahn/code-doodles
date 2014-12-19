@@ -24,14 +24,7 @@ class Ring {
 
   draw(context) {
 
-    let color = this.color;
-    color = color.desaturate(this.percentAround());
-    color = color.lighten(this.percentAround() / 2);
-    context.fillStyle = color.hex();
-
-    context.beginPath();
-    context.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
-    context.fill();
+    context.strokeStyle = this.color.hex();
 
     context.beginPath();
     context.moveTo(this.center.x, this.center.y);
