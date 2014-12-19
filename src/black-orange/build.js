@@ -33,7 +33,7 @@ module.exports = function(buildPath, callback) {
     },
 
     done => {
-      browserify()
+      browserify({ basedir: __dirname })
         .transform(to5ify)
         .require(jsInPath, { entry: true })
         .bundle()
