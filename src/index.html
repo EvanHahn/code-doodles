@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Evan Hahn's code doodles</title>
+    <link rel="stylesheet" href="index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  </head>
+  <body>
+    <h1>"Code doodles" by <a href="http://evanhahn.com">Evan Hahn</a></h1>
+    <ul class="doodles"></ul>
+    <script>
+
+var doodles = 'blooming-onion pietime you-are-the-worst fireworks ring-tones pyramid-waves sunrise repel branches'.split(/\s+/g);
+
+function crel(name) {
+  return document.createElement(name);
+}
+
+var list = document.createDocumentFragment();
+doodles.forEach(function(name) {
+  var li = crel('li');
+  var a = crel('a');
+  var h1 = crel('h1');
+  var img = crel('img');
+  a.href = name + '/';
+  h1.innerHTML = name.replace(/-/g, ' ');
+  img.src = a.href + 'image.png';
+  a.appendChild(h1);
+  a.appendChild(img);
+  li.appendChild(a);
+  list.appendChild(li);
+});
+
+document.querySelector('.doodles').appendChild(list);
+
+    </script>
+  </body>
+</html>

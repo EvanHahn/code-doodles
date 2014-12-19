@@ -1,10 +1,15 @@
 {
   "private": true,
   "scripts": {
-    "start": "harp server src --port 3000",
-    "build": "harp compile src www"
+    "start": "6to5-node build.js"
   },
   "devDependencies": {
-    "harp": "0.14.x"
+    "6to5": "^1.15.0",
+    "connect": "^3.3.3",
+    "harp": "0.14.x",
+    "rmdir": "^1.0.4",
+    "serve-static": "^1.7.1",
+    "stream-copy-file": "^0.1.0",
+    "watch": "^0.13.0"
   }
 }
