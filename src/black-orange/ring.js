@@ -1,16 +1,16 @@
 const randomDirection = require('./random-direction');
-const Spectra = require('../vendor/spectra-0.2.3');
+const randomSpectra = require('./random-spectra');
 
 const twopi = 2 * Math.PI;
 
 class Ring {
 
-  constructor(center, radius) {
+  constructor({ center: center, radius: radius }) {
     this.center = center;
     this.radius = radius;
     this.startRotation = randomDirection();
     this.rotation = this.startRotation;
-    this.color = Spectra.random();
+    this.color = randomSpectra();
   }
 
   percentAround() {
@@ -19,11 +19,13 @@ class Ring {
   }
 
   update(dt) {
-    this.rotation = (this.rotation + dt) % (2 * Math.PI);
+    const rotationAmount = (dt * Math.pow(this.radius, 1.3) / 1000) + (this.radius / 10000);
+    this.rotation = (this.rotation + rotationAmount) % (2 * Math.PI);
   }
 
   draw(context) {
 
+    context.lineWidth = Math.max(Math.pow(this.radius, 0.4), 1);
     context.strokeStyle = this.color.hex();
 
     context.beginPath();
