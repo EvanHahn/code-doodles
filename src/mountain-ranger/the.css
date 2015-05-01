@@ -1,0 +1,37 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+#instructions h1, canvas {
+	cursor: default;
+}
+
+#instructions {
+	z-index: 1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: table;
+	opacity: 1;
+}
+
+#instructions h1 {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 36pt;
+	font-weight: 100;
+	text-transform: lowercase;
+	letter-spacing: 0.15em;
+	color: white;
+}
+
+#instructions.hidden {
+	transition: 3s opacity ease-in;
+	opacity: 0;
+}
