@@ -38,7 +38,7 @@ function tick(t) {
 }
 
 setInterval(function () {
-  const newEntity = new Particle(Math.random() * canvas.width, 0);
+  const newEntity = new Particle(Math.random() * canvas.width, canvas.height);
 
   let needsToPush = true;
   for (let i = 0; i < entities.length; i++) {

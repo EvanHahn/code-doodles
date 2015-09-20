@@ -6,15 +6,15 @@ class Particle {
     this.y = y;
 
     const random = Math.random();
-    this.size = Math.round((random * 10) + 5);
+    this.size = Math.round((random * 7) + 5);
     this.speed = (random * 0.2) + 0.05;
-    this.color = Spectra('teal').darken((1 - random) * 30).hex();
+    this.color = Spectra('teal').darken((1 - random) * 15).hex();
   }
 
   tick(dt, canvas) {
-    this.y += dt * this.speed;
+    this.y -= dt * this.speed;
 
-    if (this.y > canvas.height) {
+    if (this.y < 0) {
       this.deleted = true;
     }
   }
