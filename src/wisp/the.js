@@ -1,14 +1,15 @@
 const Spectra = require('spectra');
 const makeCanvasFillScreen = require('./lib/make-canvas-fill-screen');
 
-const MAX_PARTICLES = 4096;
+const MAX_PARTICLES = 2048;
 
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
 document.body.appendChild(canvas);
 makeCanvasFillScreen(canvas);
 
-const particleData = new Float64Array(MAX_PARTICLES * 3);
+const particleDataLength = MAX_PARTICLES * 3;
+const particleData = new Float64Array(particleDataLength);
 
 let lastTime;
 function tick(t) {
@@ -17,7 +18,7 @@ function tick(t) {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (let i = 0; i < particleData.length; i += 3) {
+  for (let i = 0; i < particleDataLength; i += 3) {
     const y = particleData[i + 1];
     if (y < 0) { continue; }
     const x = particleData[i];
@@ -40,7 +41,7 @@ setInterval(function () {
   const newX = Math.round(Math.random() * canvas.width);
 
   let i;
-  for (i = 0; i < particleData.length; i += 3) {
+  for (i = 0; i < particleDataLength; i += 3) {
     const y = particleData[i + 1];
     if (y < 0) { break; }
   }
