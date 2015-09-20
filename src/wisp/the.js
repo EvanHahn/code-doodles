@@ -26,8 +26,7 @@ function tick(t) {
   // make a new particle
   newX = (Math.random() * canvas.width) | 0;
   for (i = 0; i < particleDataLength; i += 3) {
-    y = particleData[i + 1];
-    if (y < 0) { break; }
+    if (particleData[i + 1] < 0) { break; }
   }
   particleData[i] = newX;
   particleData[i + 1] = canvas.height;
