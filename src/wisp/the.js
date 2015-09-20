@@ -41,7 +41,7 @@ function tick(t) {
     scalar = particleData[i + 2];
     size = Math.round((scalar * 7) + 5);
     speed = (scalar * 0.2) + 0.05;
-    color = Spectra('teal').darken((1 - scalar) * 15).hex();
+    color = Spectra('teal').darken((1 - scalar) * 15).rgbaString();
 
     particleData[i + 1] = y - dt * speed;
 
