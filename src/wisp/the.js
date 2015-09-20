@@ -18,6 +18,18 @@ function tick(t) {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  const newX = (Math.random() * canvas.width) | 0;
+
+  let i;
+  for (i = 0; i < particleDataLength; i += 3) {
+    const y = particleData[i + 1];
+    if (y < 0) { break; }
+  }
+
+  particleData[i] = newX;
+  particleData[i + 1] = canvas.height;
+  particleData[i + 2] = Math.random();
+
   for (let i = 0; i < particleDataLength; i += 3) {
     const y = particleData[i + 1];
     if (y < 0) { continue; }
@@ -36,19 +48,5 @@ function tick(t) {
 
   requestAnimationFrame(tick);
 }
-
-setInterval(function () {
-  const newX = Math.round(Math.random() * canvas.width);
-
-  let i;
-  for (i = 0; i < particleDataLength; i += 3) {
-    const y = particleData[i + 1];
-    if (y < 0) { break; }
-  }
-
-  particleData[i] = newX;
-  particleData[i + 1] = canvas.height;
-  particleData[i + 2] = Math.random();
-}, 0);
 
 tick(0);
