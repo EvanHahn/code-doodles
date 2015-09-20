@@ -10,7 +10,7 @@ makeCanvasFillScreen(canvas);
 // define particle data array
 const MAX_PARTICLES = 2048;
 const particleDataLength = MAX_PARTICLES * 3;
-const particleData = new Float64Array(particleDataLength);
+const particleData = new Float32Array(particleDataLength);
 
 let lastTime = 0;
 function tick(t) {
