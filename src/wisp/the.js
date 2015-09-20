@@ -52,6 +52,6 @@ setInterval(function () {
   if (needsToPush) {
     entities.push(newEntity);
   }
-}, 1);
+}, 0);
 
 tick(0);

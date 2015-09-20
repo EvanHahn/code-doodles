@@ -5,9 +5,10 @@ class Particle {
     this.x = x;
     this.y = y;
 
-    this.size = Math.round((Math.random() * 5) + 5);
-    this.speed = (Math.random() * 0.5) + 0.05;
-    this.color = Spectra.random().hex();
+    const random = Math.random();
+    this.size = Math.round((random * 10) + 5);
+    this.speed = (random * 0.2) + 0.05;
+    this.color = Spectra('teal').darken((1 - random) * 30).hex();
   }
 
   tick(dt, canvas) {
