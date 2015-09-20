@@ -11,7 +11,7 @@ class Particle {
     this.color = Spectra('teal').darken((1 - random) * 15).hex();
   }
 
-  tick(dt, canvas) {
+  tick(dt) {
     this.y -= dt * this.speed;
 
     if (this.y < 0) {
