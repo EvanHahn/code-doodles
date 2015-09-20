@@ -13,19 +13,20 @@ const particleDataLength = MAX_PARTICLES * 3;
 const particleData = new Float32Array(particleDataLength);
 
 let lastTime = 0;
+
+let dt, i, newX, x, y, scalar, size, speed, color;
 function tick(t) {
   // calculate ∆t
-  const dt = t - lastTime;
+  dt = t - lastTime;
   lastTime = t;
 
   // empty screen
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // make a new particle
-  const newX = (Math.random() * canvas.width) | 0;
-  let i;
+  newX = (Math.random() * canvas.width) | 0;
   for (i = 0; i < particleDataLength; i += 3) {
-    const y = particleData[i + 1];
+    y = particleData[i + 1];
     if (y < 0) { break; }
   }
   particleData[i] = newX;
@@ -33,15 +34,15 @@ function tick(t) {
   particleData[i + 2] = Math.random();
 
   // move and draw all the particles
-  for (let i = 0; i < particleDataLength; i += 3) {
-    const y = particleData[i + 1];
+  for (i = 0; i < particleDataLength; i += 3) {
+    y = particleData[i + 1];
     if (y < 0) { continue; }
-    const x = particleData[i];
+    x = particleData[i];
 
-    const scalar = particleData[i + 2];
-    const size = Math.round((scalar * 7) + 5);
-    const speed = (scalar * 0.2) + 0.05;
-    const color = Spectra('teal').darken((1 - scalar) * 15).hex();
+    scalar = particleData[i + 2];
+    size = Math.round((scalar * 7) + 5);
+    speed = (scalar * 0.2) + 0.05;
+    color = Spectra('teal').darken((1 - scalar) * 15).hex();
 
     particleData[i + 1] = y - dt * speed;
 
