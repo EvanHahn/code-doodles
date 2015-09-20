@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "browserify -t babelify -o the.built.js the.js",
+    "watch": "watchify -t babelify -o the.built.js the.js"
+  },
+  "dependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.1.0",
+    "spectra": "^0.2.3"
+  },
+  "devDependencies": {
+    "watchify": "^3.4.0"
+  }
+}
