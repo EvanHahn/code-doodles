@@ -9,7 +9,7 @@ function Layer(options) {
   innerEl.innerHTML = 'ugh';
   el.appendChild(innerEl);
 
-  this.color = '#fff';
+  this.color = '#000';
 
   document.body.appendChild(el);
 
@@ -28,9 +28,27 @@ for (var i = 10; i < (window.innerHeight / 2); i += 10) {
   }));
 }
 
+var lastLayer = layers[layers.length - 1];
+var hasCycled = false;
+
+var currentIndex = 0;
 setInterval(function () {
-  layers.forEach(function (layer) {
-    layer.color = Spectra.random().hex();
-    layer.render();
-  });
-}, 500);
+  var layer = layers[currentIndex];
+
+  layer.color = Spectra.random().hex();
+
+  if ((currentIndex < 3) && hasCycled) {
+    lastLayer.color = '#fff';
+  } else {
+    lastLayer.color = '#000';
+  }
+
+  if (currentIndex >= 3) {
+    hasCycled = true;
+  }
+
+  lastLayer.render();
+  layer.render();
+
+  currentIndex = (currentIndex + 1) % layers.length;
+}, 100);
