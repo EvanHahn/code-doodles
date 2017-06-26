@@ -1,0 +1,33 @@
+html, body, canvas {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: background 0.5s ease;
+  cursor: none;
+}
+
+#instructions {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  text-align: right;
+  font-family: Lato, "Segoe UI", Avenir, Ubuntu, Tahoma, Verdana, Helvetica, sans-serif;
+  font-size: 3em;
+  font-weight: 100;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 0 0 5px #000;
+  cursor: none;
+  opacity: 0.9;
+  transition: opacity 2s ease-out;
+}
+
+#instructions.hidden {
+  transition: opacity 2s ease-out;
+  opacity: 0;
+}
